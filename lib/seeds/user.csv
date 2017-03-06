@@ -1,0 +1,4 @@
+id,email,password,first_name,gender,admin,approver_id
+1,admin@email.com,1234567,admin,female,TRUE,
+2,user@email.com,2345678,user,male,FALSE,1
+3,user1@email.com,2345678,user,male,FALSE,
