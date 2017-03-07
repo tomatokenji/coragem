@@ -8,8 +8,8 @@ class CreateProjects < ActiveRecord::Migration[5.0]
       t.text :talents_needed
       t.text :budget
       t.boolean :approved
-      t.integer :project_approver_id, index: true
-      t.integer :project_manager_id, index: true
+      t.references :project_approver, index: true
+      t.references :project_manager, index: true
       t.references :user, index: true, foreign_key: true
 
       t.timestamps
