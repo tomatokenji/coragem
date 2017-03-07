@@ -5,4 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   has_many :projects
   has_one :approval
+  has_one :approver, :through => :approval
+  # i dont think i need this .. but lets see.
+  # has_one :project_approver, :through => :projects
+  # has_one :project_manager, :through => :projects
+  
 end

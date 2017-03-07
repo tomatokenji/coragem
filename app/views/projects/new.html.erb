@@ -1,0 +1,21 @@
+<h1>Projects#new</h1>
+<p>Find me in app/views/projects/new.html.erb</p>
+<p><%= @user %> </p>
+<div class="container">
+  <div class="jumbotron">
+    <%= bootstrap_form_for :project, url: projects_path do |p| %>
+      <div class="row">
+        <div class="col-md-6">
+          <%= p.text_field :name, label: 'Name of Project', icon:'pencil' %>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <%= p.text_area :description, label: 'Description', icon:'list-alt', rows: "5" %>
+        </div>
+      </div>
+        <%= p.submit class: 'btn btn-success' %>
+    <% end %>
+  </div>
+</div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170306064219) do
+ActiveRecord::Schema.define(version: 20170306055128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,16 +26,19 @@ ActiveRecord::Schema.define(version: 20170306064219) do
 
   create_table "projects", force: :cascade do |t|
     t.string   "name"
+    t.text     "objectives"
     t.text     "description"
-    t.text     "skills_needed"
+    t.text     "project_scope"
+    t.text     "talents_needed"
+    t.text     "budget"
     t.boolean  "approved"
-    t.integer  "approver_id"
-    t.text     "benefits"
-    t.text     "resources_needed"
+    t.integer  "project_approver_id"
+    t.integer  "project_manager_id"
     t.integer  "user_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.index ["approver_id"], name: "index_projects_on_approver_id", using: :btree
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["project_approver_id"], name: "index_projects_on_project_approver_id", using: :btree
+    t.index ["project_manager_id"], name: "index_projects_on_project_manager_id", using: :btree
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
   end
 
@@ -71,5 +74,6 @@ ActiveRecord::Schema.define(version: 20170306064219) do
   add_foreign_key "approvals", "users"
   add_foreign_key "approvals", "users", column: "approver_id"
   add_foreign_key "projects", "users"
-  add_foreign_key "projects", "users", column: "approver_id"
+  add_foreign_key "projects", "users", column: "project_approver_id"
+  add_foreign_key "projects", "users", column: "project_manager_id"
 end

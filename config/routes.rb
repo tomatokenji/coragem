@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get 'projects/index'
-
-  get 'projects/about'
-
   get 'main/index'
 
   # this gives the devise routes
@@ -11,7 +7,7 @@ Rails.application.routes.draw do
 
   #root page is signup page
   devise_scope :user do
-    root to: "devise/sessions#new"
+    root to: "main#index"
   end
 
   resources :users
