@@ -12,5 +12,10 @@ Rails.application.routes.draw do
 
   resources :users
   resources :projects
+  resources :project_photos
+
+  #custom routes
+  get '/projects/confirm/:id', to: 'projects#confirm'
+  put '/projects/confirm/:id', to: 'projects#confirmed'
 
 end

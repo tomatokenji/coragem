@@ -26,3 +26,16 @@ csv.each do |row|
 end
 
 puts "There are now #{User.count} rows in the transactions table"
+
+#creates the status of projects (fixed dropdown)
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'status_project.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  t = StatusProject.new
+  t.id = row['id']
+  t.status = row['status']
+  t.save!
+  puts "#{t.status} saved"
+end
+
+puts "There are now #{StatusProject.count} rows in the status_project table"

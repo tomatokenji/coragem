@@ -9,53 +9,11 @@
         </div>
     </div>
 
-    <!-- this is the timeline -->
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'>
-    <ul class="timeline" id="timeline">
-      <li class="li complete">
-        <div class="timestamp">
-          <span class="author">Abhi Sharma</span>
-          <span class="date">11/15/2014<span>
-        </div>
-        <div class="status">
-          <h4> Shift Created </h4>
-        </div>
-      </li>
-      <li class="li complete">
-        <div class="timestamp">
-          <span class="author">PAM Admin</span>
-          <span class="date">11/15/2014<span>
-        </div>
-        <div class="status">
-          <h4> Email Sent </h4>
-        </div>
-      </li>
-      <li class="li complete">
-        <div class="timestamp">
-          <span class="author">Aaron Rodgers</span>
-          <span class="date">11/15/2014<span>
-        </div>
-        <div class="status">
-          <h4> SIC Approval </h4>
-        </div>
-      </li>
-      <li class="li">
-        <div class="timestamp">
-          <span class="author">PAM Admin</span>
-          <span class="date">TBD<span>
-        </div>
-        <div class="status">
-          <h4> Shift Completed </h4>
-        </div>
-      </li>
-     </ul>
-
     <!-- Page Heading -->
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
-                Propose New Project
-                <small>Enter Details</small>
+                Confirm Project Details
             </h1>
             <ol class="breadcrumb">
                 <li class="active">
@@ -66,22 +24,9 @@
         </div>
     </div>
     <!-- /.row -->
-      <%= bootstrap_form_for :project, url: projects_path do |p| %>
       <div class="row">
-          <!-- picture column -->
-          <div class='col-md-4'>
-            <h5>
-              <i class="fa fa-bar-chart-o fa-fw"></i>
-              Select Image
-            </h5>
 
-            <!-- this has to be in a separate form :/ -->
-
-            <img src='#' class="img-rounded" alt="Cinque Terre" width="304" height="236">
-              <%= p.file_field :project_profile_picture, label: "select image" %>
-          </div>
-
-          <div class="col-lg-8">
+          <div class="col-lg-12">
               <div class="panel panel-default">
                   <div class="panel-heading">
                       <h3 class="panel-title">
@@ -97,7 +42,10 @@
                           <i class="fa fa-bar-chart-o fa-fw"></i>
                           Project Title
                         </h5>
-                        <%= p.text_field :name, hide_label: true, icon:'pencil' %>
+                        <h6>
+
+                          <%= @project.name %>
+                        </h6>
                       </div>
 
                       <div class='col-md-12'>
@@ -105,7 +53,9 @@
                           <i class="fa fa-bar-chart-o fa-fw"></i>
                           Key Objectives / Goals
                         </h5>
-                        <%= p.text_area :objectives, hide_label: true %>
+                        <h6>
+                          <%= @project.objectives %>
+                        </h6>
                       </div>
 
                       <div class='col-md-12'>
@@ -113,12 +63,11 @@
                           <i class="fa fa-bar-chart-o fa-fw"></i>
                           Brief Description
                         </h5>
-                        <%= p.text_area :description, hide_label: true  %>
+                        <h6>
+                          <%= @project.description %>
+                        </h6>
                       </div>
 
-                      <div class='col-md-12'>
-                        <%= p.text_area :talents_needed, label: 'Brief Description' %>
-                      </div>
                     </div>
                   </div>
               </div>
@@ -144,7 +93,9 @@
                           <i class="fa fa-bar-chart-o fa-fw"></i>
                           Talents / Manpower Required
                         </h5>
-                        <%= p.text_field :objectives, hide_label: true, icon:'pencil' %>
+                        <h6>
+                          <%= @project.talents_needed %>
+                        </h6>
                       </div>
 
                       <div class='col-md-12'>
@@ -152,7 +103,9 @@
                           <i class="fa fa-bar-chart-o fa-fw"></i>
                           Estimated Budget
                         </h5>
-                        <%= p.text_area :objectives, hide_label: true %>
+                        <h6>
+                          <%= @project.budget %>
+                        </h6>
                       </div>
 
                       <div class='col-md-12'>
@@ -160,7 +113,9 @@
                           <i class="fa fa-bar-chart-o fa-fw"></i>
                           Estimated Payoff
                         </h5>
-                        <%= p.text_area :description, hide_label: true  %>
+                        <h6>
+                          <%= @project.description %>
+                        </h6>
                       </div>
                     </div>
 
@@ -169,10 +124,10 @@
                         <i class="fa fa-bar-chart-o fa-fw"></i>
                         Select people to send invites to!
                       </h5>
-                      <%= p.text_area :description, hide_label: true  %>
+                      <h6>
+                        <%= @project.description %>
+                      </h6>
                     </div>
-
-
               </div>
           </div>
       </div>
@@ -196,14 +151,15 @@
                       <i class="fa fa-bar-chart-o fa-fw"></i>
                       File Upload
                     </h5>
-                      <%= p.file_field :project_proposal, hide_label: true %>
+                      need to render file here
                   </div>
             </div>
         </div>
     </div>
   </div>
-  
-  <%= p.submit "Save Project", class: "btn btn-success" %>
+
+  <%= bootstrap_form_for :project, url: "/projects/confirm/"+@project.id.to_s, method:"PUT" do |p| %>
+  <%= p.submit "Edit Project", class: "btn btn-success" %>
   <%= p.primary "Submit Project" %>
   <% end %>
 

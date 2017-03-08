@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307040151) do
+ActiveRecord::Schema.define(version: 20170308023714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,15 @@ ActiveRecord::Schema.define(version: 20170307040151) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "project_files", force: :cascade do |t|
+    t.string   "file_url"
+    t.string   "type"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_files_on_project_id", using: :btree
+  end
+
   create_table "project_followings", force: :cascade do |t|
     t.integer  "follower_id"
     t.integer  "following_project_id"
@@ -48,6 +57,15 @@ ActiveRecord::Schema.define(version: 20170307040151) do
     t.index ["following_project_id"], name: "index_project_followings_on_following_project_id", using: :btree
   end
 
+  create_table "project_photos", force: :cascade do |t|
+    t.string   "photo_url"
+    t.string   "type"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_photos_on_project_id", using: :btree
+  end
+
   create_table "projects", force: :cascade do |t|
     t.string   "name"
     t.text     "objectives"
@@ -55,15 +73,25 @@ ActiveRecord::Schema.define(version: 20170307040151) do
     t.text     "project_scope"
     t.text     "talents_needed"
     t.text     "budget"
-    t.boolean  "approved"
+    t.string   "status"
+    t.string   "project_profile_picture_id"
+    t.string   "project_proposal_id"
     t.integer  "project_approver_id"
     t.integer  "project_manager_id"
     t.integer  "user_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.integer  "status_project_id"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.index ["project_approver_id"], name: "index_projects_on_project_approver_id", using: :btree
     t.index ["project_manager_id"], name: "index_projects_on_project_manager_id", using: :btree
+    t.index ["status_project_id"], name: "index_projects_on_status_project_id", using: :btree
     t.index ["user_id"], name: "index_projects_on_user_id", using: :btree
+  end
+
+  create_table "status_projects", force: :cascade do |t|
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -99,8 +127,11 @@ ActiveRecord::Schema.define(version: 20170307040151) do
   add_foreign_key "approvals", "users", column: "approver_id"
   add_foreign_key "notification_users", "notifications"
   add_foreign_key "notification_users", "users"
+  add_foreign_key "project_files", "projects"
   add_foreign_key "project_followings", "projects", column: "following_project_id"
   add_foreign_key "project_followings", "users", column: "follower_id"
+  add_foreign_key "project_photos", "projects"
+  add_foreign_key "projects", "status_projects"
   add_foreign_key "projects", "users"
   add_foreign_key "projects", "users", column: "project_approver_id"
   add_foreign_key "projects", "users", column: "project_manager_id"
